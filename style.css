@@ -52,12 +52,16 @@ body {
     color: rgb(226, 6, 6);
 }
 
-.controls .timestamp  {
+.controls .timestamp,.vlength  {
     font-weight: bold;
     color: #fff;
     margin-left: 10px;
 
 }
+
+.controls .vlength {
+    margin-left: auto;
+} 
 
 .controls .progress {
     width: 100%;

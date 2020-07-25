@@ -3,9 +3,10 @@ const play = document.getElementById('play');
 const stop = document.getElementById('stop');
 const progress = document.getElementById('progress');
 const timestamp = document.getElementById('timestamp');
+const vlength = document.getElementById('vlength');
 
 //play and pause video
-function toggleVideoStatus(event) {
+function toggleVideoStatus() {
     if(video.paused) {
         video.play();
     } else {
@@ -13,7 +14,7 @@ function toggleVideoStatus(event) {
     }
 }
 //change play pause icon    
-function updatePlayIcon (event) {
+function updatePlayIcon () {
     if(video.paused) {
         play.innerHTML= '<i class = "fa fa-play fa-2x"></i>';
     } else {
@@ -21,7 +22,7 @@ function updatePlayIcon (event) {
     }
 }
 //update progress and timestamp
-function updateProgress (event) {
+function updateProgress () {
     progress.value = (video.currentTime / video.duration) * 100;
 
     //get minutes
@@ -39,15 +40,33 @@ function updateProgress (event) {
     timestamp.innerHTML = `${mins}:${secs}`;
 
 }
+
+//set duration of video
+function setVideoDuration() {
+     //get minutes
+     let mins = Math.floor(video.duration/60);
+     if(mins < 10) {
+         mins= '0' + String(mins);
+     }
+     
+     //get seconds
+     let secs = Math.floor(video.duration % 60);
+     if(secs < 10) {
+         secs= '0' + String(secs);
+     }
+ 
+     vlength.innerHTML = `/${mins}:${secs}`;
+}
+
 //set video time to progress
-function setVideoProgress (event) {
+function setVideoProgress () {
     video.currentTime = ((+progress.value) * video.duration /100);     
 
 }
 
 
 //stop video on button
-function stopVideo (event) {
+function stopVideo () {
     video.currentTime = 0;
     video.pause();
 }
@@ -58,6 +77,8 @@ video.addEventListener('click', toggleVideoStatus);
 video.addEventListener('pause',  updatePlayIcon);
 video.addEventListener('play',  updatePlayIcon);
 video.addEventListener('timeupdate', updateProgress);
+video.addEventListener('timeupdate', setVideoDuration);
+
 
 play.addEventListener('click', toggleVideoStatus);
 stop.addEventListener('click', stopVideo);
